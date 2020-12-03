@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 // import EditDetails from './EditDetails';
-// import MyButton from '../../util/MyButton';
+import MyButton from '../../util/MyButton'
 // import ProfileSkeleton from '../../util/ProfileSkeleton';
 
 import Button from '@material-ui/core/Button'
@@ -25,6 +25,19 @@ const styles = (theme) => ({
 	...theme.spreadThis,
 })
 export class Profile extends Component {
+	handleImageChange = (event) => {
+		const image = event.target.files[0]
+		const formData = new FormData()
+		formData.append('image', image, image.name)
+		this.props.uploadImage(formData)
+	}
+	handleEditPicture = () => {
+		const fileInput = document.getElementById('imageInput')
+		fileInput.click()
+	}
+	handleLogout = () => {
+		this.props.logoutUser()
+	}
 	render() {
 		const {
 			classes,
@@ -46,13 +59,13 @@ export class Profile extends Component {
 								hidden="hidden"
 								onChange={this.handleImageChange}
 							/>
-							{/* <MyButton
+							<MyButton
 								tip="Edit profile picture"
 								onClick={this.handleEditPicture}
 								btnClassName="button"
 							>
 								<EditIcon color="primary" />
-							</MyButton> */}
+							</MyButton>
 						</div>
 						<hr />
 						<div className="profile-details">
@@ -86,10 +99,10 @@ export class Profile extends Component {
 							<CalendarToday color="primary" />{' '}
 							<span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
 						</div>
-						{/* <MyButton tip="Logout" onClick={this.handleLogout}>
+						<MyButton tip="Logout" onClick={this.handleLogout}>
 							<KeyboardReturn color="primary" />
 						</MyButton>
-						<EditDetails /> */}
+						{/* <EditDetails /> */}
 					</div>
 				</Paper>
 			) : (
