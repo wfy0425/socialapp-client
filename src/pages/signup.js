@@ -9,9 +9,9 @@ import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import axios from 'axios'
-// import { connect } from 'react-redux'
-// import { loginUser } from '../redux/actions/userActions'
+
+import { connect } from 'react-redux'
+import { signupUser } from '../redux/actions/userActions'
 
 const styles = (theme) => ({
 	...theme.spreadThis,
@@ -24,35 +24,26 @@ class signup extends Component {
 			password: '',
 			confirmPassword: '',
 			handle: '',
-			loading: false,
 			errors: {},
+		}
+	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.UI.errors) {
+			this.setState({ errors: nextProps.UI.errors })
 		}
 	}
 	handleSubmit = (event) => {
 		event.preventDefault()
-		this.setState({ loading: true })
+		this.setState({
+			loading: true,
+		})
 		const newUserData = {
 			email: this.state.email,
 			password: this.state.password,
 			confirmPassword: this.state.confirmPassword,
 			handle: this.state.handle,
 		}
-		axios
-			.post('/signup', newUserData)
-			.then((res) => {
-				console.log(res.data)
-				localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
-				this.setState({
-					loading: false,
-				})
-				this.props.history.push('/')
-			})
-			.catch((err) => {
-				this.setState({
-					errors: err.response.data,
-					loading: false,
-				})
-			})
+		this.props.signupUser(newUserData, this.props.history)
 	}
 	handleChange = (event) => {
 		this.setState({
@@ -60,15 +51,19 @@ class signup extends Component {
 		})
 	}
 	render() {
-		const { classes } = this.props
-		const { errors, loading } = this.state
+		const {
+			classes,
+			UI: { loading },
+		} = this.props
+		const { errors } = this.state
+
 		return (
 			<Grid container className={classes.form}>
 				<Grid item sm />
 				<Grid item sm>
 					<img src={AppIcon} alt="monkey" className={classes.image} />
 					<Typography variant="h2" className={classes.pageTitle}>
-						Signup
+						SignUp
 					</Typography>
 					<form noValidate onSubmit={this.handleSubmit}>
 						<TextField
@@ -99,7 +94,7 @@ class signup extends Component {
 							id="confirmPassword"
 							name="confirmPassword"
 							type="password"
-							label="confirmPassword"
+							label="Confirm Password"
 							className={classes.textField}
 							helperText={errors.confirmPassword}
 							error={errors.confirmPassword ? true : false}
@@ -111,7 +106,7 @@ class signup extends Component {
 							id="handle"
 							name="handle"
 							type="text"
-							label="handle"
+							label="Handle"
 							className={classes.textField}
 							helperText={errors.handle}
 							error={errors.handle ? true : false}
@@ -131,14 +126,14 @@ class signup extends Component {
 							className={classes.button}
 							disabled={loading}
 						>
-							Signup
+							SignUp
 							{loading && (
 								<CircularProgress size={30} className={classes.progress} />
 							)}
 						</Button>
 						<br />
 						<small>
-							already have an account ? login <Link to="/login">here</Link>
+							Already have an account ? Login <Link to="/login">here</Link>
 						</small>
 					</form>
 				</Grid>
@@ -150,5 +145,16 @@ class signup extends Component {
 
 signup.propTypes = {
 	classes: PropTypes.object.isRequired,
+	user: PropTypes.object.isRequired,
+	UI: PropTypes.object.isRequired,
+	signupUser: PropTypes.func.isRequired,
 }
-export default withStyles(styles)(signup)
+
+const mapStateToProps = (state) => ({
+	user: state.user,
+	UI: state.UI,
+})
+
+export default connect(mapStateToProps, { signupUser })(
+	withStyles(styles)(signup)
+)
