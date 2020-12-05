@@ -11,7 +11,7 @@ import store from './redux/store'
 import { SET_AUTHENTICATED } from './redux/types'
 import { logoutUser, getUserData } from './redux/actions/userActions'
 
-import NavBar from './components/NavBar'
+import Navbar from './components/Navbar'
 import AuthRoute from './util/AuthRoute'
 
 import home from './pages/home'
@@ -43,7 +43,7 @@ class App extends Component {
 			<MuiThemeProvider theme={theme}>
 				<Provider store={store}>
 					<Router>
-						<NavBar />
+						<Navbar />
 						<div className="container">
 							<Switch>
 								<Route exact path="/" component={home} />
