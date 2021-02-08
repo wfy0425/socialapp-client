@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import MyButton from '../util/MyButton'
-// import PostScream from '../scream/PostScream';
+import PostScream from './PostScream'
 // import Notifications from './Notifications';
 
 import AppBar from '@material-ui/core/AppBar'
@@ -19,7 +19,7 @@ class Navbar extends Component {
 				<Toolbar className="nav-container">
 					{authenticated ? (
 						<Fragment>
-							{/* <PostScream /> */}
+							<PostScream />
 							<Link to="/">
 								<MyButton tip="Home">
 									<HomeIcon />
