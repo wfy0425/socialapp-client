@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
 import MyButton from '../util/MyButton'
-// import LikeButton from './LikeButton'
+import LikeButton from './LikeButton'
 // import Comments from './Comments'
 // import CommentForm from './CommentForm'
 import dayjs from 'dayjs'
@@ -117,7 +117,7 @@ class ScreamDialog extends Component {
 					</Typography>
 					<hr className={classes.invisibleSeparator} />
 					<Typography variant="body1">{body}</Typography>
-					{/* <LikeButton screamId={screamId} /> */}
+					<LikeButton screamId={screamId} />
 					<span>{likeCount} likes</span>
 					<MyButton tip="comments">
 						<ChatIcon color="primary" />
