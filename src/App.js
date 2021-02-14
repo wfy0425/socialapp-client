@@ -11,7 +11,7 @@ import store from './redux/store'
 import { SET_AUTHENTICATED } from './redux/types'
 import { logoutUser, getUserData } from './redux/actions/userActions'
 
-import Navbar from './components/Navbar'
+import Navbar from './components/layout/Navbar'
 import AuthRoute from './util/AuthRoute'
 
 import home from './pages/home'
@@ -22,7 +22,6 @@ import axios from 'axios'
 
 const theme = createMuiTheme(themeFile)
 
-let authenticated
 const token = localStorage.FBIdToken
 // console.log(token)
 if (token) {
