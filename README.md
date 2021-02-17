@@ -8,8 +8,9 @@
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 SocialApp is a online social application based on React, Redux, Node.js, Express, and Firebase.\
-This is the client side repository.\
-Access the application from here: [Link](https://socialapp-2adfc.web.app/)
+This is the client-side repository.\
+Access the application from [Here](https://socialapp-2adfc.web.app/).\
+Access the sever-side repository from [Here](https://github.com/wfy0425/socialApp-server).\
 
 ## Table of Contents
 
